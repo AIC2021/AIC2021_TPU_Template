@@ -17,7 +17,7 @@ module top_tb;
   reg start;
   wire done;
   reg [3:0] row_a, col_b, k;
-  integer err, i;
+  integer err, i, row_offset;
 
   reg [`GBUFF_ADDR_SIZE-1:0] GOLDEN [`WORD_SIZE-1:0];
   always #(`CYCLE/2) clk = ~clk;
@@ -47,14 +47,18 @@ module top_tb;
     //  $display("%h %h %h %h",
     //    GOLDEN[i][7:0], GOLDEN[i][15:8], GOLDEN[i][23:16], GOLDEN[i][31:24]);
     //end
+    row_offset = (`MATRIX_B_COL >= 9)? 3:
+                 (`MATRIX_B_COL >= 5 && `MATRIX_B_COL < 9)? 2: 1;
+
     wait(done == 1);
     $display("\nSimulation Done.\n");
+
 
 //----------------------------------------------------------------------------//
 // Verify output global buffer with golden                                    //
 //----------------------------------------------------------------------------//
     err = 0;
-    for (i = 0; i < `MATRIX_A_ROW; i=i+1) begin
+    for (i = 0; i < `MATRIX_A_ROW * row_offset; i=i+1) begin
       // [7:0]
       if (GOLDEN[i][31:24] != TOP.GBUFF_OUT.gbuff[i][7:0]) begin
         $display("GBUFF_OUT[%2d][ 7: 0] = %2h, expect = %2h",
@@ -110,7 +114,7 @@ module top_tb;
 
     #(`CYCLE*`MAX)
     err = 0;
-    for (i = 0; i < `MATRIX_A_ROW; i=i+1) begin
+    for (i = 0; i < `MATRIX_A_ROW * row_offset; i=i+1) begin
       // [7:0]
       if (GOLDEN[i][31:24] != TOP.GBUFF_OUT.gbuff[i][7:0]) begin
         $display("GBUFF_OUT[%2d][ 7: 0] = %2h, expect = %2h",
@@ -157,7 +161,7 @@ module top_tb;
     $finish;
   end
 
-  
+
 
 
 
