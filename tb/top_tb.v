@@ -19,7 +19,7 @@ module top_tb;
   reg [3:0] row_a, col_b, k;
   integer err, i;
 
-  reg [(4*`DATA_SIZE-1):0] GOLDEN[3:0];
+  reg [`GBUFF_ADDR_SIZE-1:0] GOLDEN [`WORD_SIZE-1:0];
   always #(`CYCLE/2) clk = ~clk;
 
   top TOP(.clk(clk),
