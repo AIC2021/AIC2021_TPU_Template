@@ -9,9 +9,9 @@
 #------------------------------------------------------------------------------#
 # Change your own verilog compiler.                                            #
 #------------------------------------------------------------------------------#
-VERILOG=irun
+#VERILOG=irun
 #VERILOG=ncverilog
-#VERILOG=iverilog
+VERILOG=iverilog
 
 #------------------------------------------------------------------------------#
 # Directories Declarations                                                     #
@@ -25,22 +25,34 @@ INC_DIR=inc
 test1:
 	cd $(TB_DIR) && python3 matmul.py inputs1
 	$(VERILOG) tb/top_tb.v \
-    +incdir+$(PWD)/$(SRC_DIR)+$(PWD)/$(TB_DIR)+$(PWD)/$(BUILD_DIR) +access+r
+    -I $(PWD)/$(SRC_DIR) \
+    -I $(PWD)/$(TB_DIR) \
+    -I $(PWD)/$(BUILD_DIR) -o a.out
+	vvp a.out
 
 test2:
 	cd $(TB_DIR) && python3 matmul.py inputs2
 	$(VERILOG) tb/top_tb.v \
-    +incdir+$(PWD)/$(SRC_DIR)+$(PWD)/$(TB_DIR)+$(PWD)/$(BUILD_DIR) +access+r
+    -I $(PWD)/$(SRC_DIR) \
+    -I $(PWD)/$(TB_DIR) \
+    -I $(PWD)/$(BUILD_DIR) -o a.out
+	vvp a.out
 
 test3:
 	cd $(TB_DIR) && python3 matmul.py inputs3
 	$(VERILOG) tb/top_tb.v \
-    +incdir+$(PWD)/$(SRC_DIR)+$(PWD)/$(TB_DIR)+$(PWD)/$(BUILD_DIR) +access+r
+    -I $(PWD)/$(SRC_DIR) \
+    -I $(PWD)/$(TB_DIR) \
+    -I $(PWD)/$(BUILD_DIR) -o a.out
+	vvp a.out
 
 monster:
 	cd $(TB_DIR) && python3 matmul.py monster
 	$(VERILOG) tb/top_tb.v \
-    +incdir+$(PWD)/$(SRC_DIR)+$(PWD)/$(TB_DIR)+$(PWD)/$(BUILD_DIR) +access+r
+    -I $(PWD)/$(SRC_DIR) \
+    -I $(PWD)/$(TB_DIR) \
+    -I $(PWD)/$(BUILD_DIR) -o a.out
+	vvp a.out
 
 clean:
 	rm -rf build
