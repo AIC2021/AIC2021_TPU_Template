@@ -6,7 +6,7 @@ Design a Tensor Processing Unit(TPU) which has **4x4** Processing elements(PEs) 
 
 **Project Constraints**
 1. Your designs should be written in verilog language.
-2. Your PEs shouldn't more than **4x4**, where a 2D systolic array architecture is recommended.
+2. Your PEs shouldn't more than **4x4**, where a 2D systolic array architecture is ××strictly required×× in this project.
 3. An 8-bit data length design.
 4. 3KiBytes in total of global buffer size.
 
@@ -89,11 +89,15 @@ build/
     * Explain your dataflow in TPU
     * Pls descript as much as you can
     * ...
-* Extra (10%)
+* Extra (20%)
     * Support ```(M*K)*(K*N)```
     * or other features
         * please provided you own testbench for the extra features
     * Good coding style
     * Plagiarizing(copy-&-paste) others code is probihited
         * Dont try to do that :smile:, warning from TAs -100%
-
+    * Synthesis (10%) 
+        * Any synthesis tools is acceptable
+        * Synthesis your TPU module only   
+        * list your cell library or FPGA
+        * timing report, area report
